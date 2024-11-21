@@ -1,0 +1,6 @@
+@Timeline47_HostAddress = http://localhost:5168
+
+GET {{Timeline47_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
