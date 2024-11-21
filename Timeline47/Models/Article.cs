@@ -12,6 +12,6 @@ public class Article : BaseModel
     [MaxLength(255)]
     public required string Url { get; set; }
     public Guid NewsSourceId { get; set; }
-    public NewsSource NewsSource { get; set; }
+    public required NewsSource NewsSource { get; set; }
     public ICollection<Subject> Subjects { get; set; } = [];
 }

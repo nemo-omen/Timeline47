@@ -11,11 +11,13 @@ var env = builder.Environment;
 string connectionString;
 if (env.IsDevelopment())
 {
-    connectionString = builder.Configuration.GetConnectionString("DevConnection");
+    connectionString = builder.Configuration.GetConnectionString("DevConnection")
+        ?? throw new Exception("DevConnection is not set in appsettings.json");
 }
 else
 {
-    connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+        ?? throw new Exception("DefaultConnection is not set in appsettings.json");
 }
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
