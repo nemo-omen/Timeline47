@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Bureau of Economic Analysis",
+    "shortName": "BEA",
+    "url": "https://www.bea.gov/",
+    "dataUrl": "https://apps.bea.gov/api/data",
+    "category": "economy"
+  },
+  {
+    "name": "Bureau of Labor Statistics",
+    "shortName": "BLS",
+    "url": "https://www.bls.gov/",
+    "dataUrl": "https://api.bls.gov/publicAPI/v2",
+    "category":  "economy"
+  },
+  {
+    "name": "Federal Reserve Economic Data",
+    "shortName": "FRED",
+    "url": "https://fred.stlouisfed.org/",
+    "dataUrl": "https://api.stlouisfed.org/fred",
+    "category":  "economy"
+  },
+  {
+    "name": "U.S. Census Bureau",
+    "shortName": "Census",
+    "url": "https://www.census.gov/",
+    "dataUrl": "https://api.census.gov/data.json",
+    "category":  "welfare"
+  },
+  {
+    "name": "EPA Air Quality System",
+    "shortName": "EPA AQS",
+    "url": "https://aqs.epa.gov",
+    "dataUrl": "https://aqs.epa.gov/data/api",
+    "category":  "environment"
+  },
+  {
+    "name": "EPA ATTAINS Data",
+    "shortName": "EPA ATTAINS",
+    "url": "https://www.epa.gov/waterdata",
+    "dataUrl": "https://attains.epa.gov/attains-public/api",
+    "category":  "environment"
+  }
+]

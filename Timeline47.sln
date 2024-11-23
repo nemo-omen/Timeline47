@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timeline47", "Timeline47\Timeline47.csproj", "{6BC221B2-2769-4AD9-88DF-99E4124DBB3F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timeline47.Api", "Timeline47.Api\Timeline47.Api.csproj", "{6BC221B2-2769-4AD9-88DF-99E4124DBB3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timeline47.Test", "Timeline47.Test\Timeline47.Test.csproj", "{29D73E34-3B33-45B7-8A40-82556BA71ED7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +14,9 @@ Global
 		{6BC221B2-2769-4AD9-88DF-99E4124DBB3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BC221B2-2769-4AD9-88DF-99E4124DBB3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BC221B2-2769-4AD9-88DF-99E4124DBB3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29D73E34-3B33-45B7-8A40-82556BA71ED7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29D73E34-3B33-45B7-8A40-82556BA71ED7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29D73E34-3B33-45B7-8A40-82556BA71ED7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29D73E34-3B33-45B7-8A40-82556BA71ED7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
