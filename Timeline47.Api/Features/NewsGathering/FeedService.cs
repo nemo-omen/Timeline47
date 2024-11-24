@@ -11,6 +11,10 @@ public interface IFeedService
     Task<Result<SyndicationFeed>> GetNewsSourceFeedAsync(NewsSource newsSource);
 }
 
+// Note: I need to really determine what I want the behavior
+// of FeedService to be. I know I'm getting a list of Result<SyndicationFeed>
+// from GetFeedsFromNewsSourcesAsync, but sometimes they can be failures, so there's
+// some additional thought that needs to be put into this.
 public class FeedService : IFeedService
 {
     private readonly IFeedReader _feedReader;
