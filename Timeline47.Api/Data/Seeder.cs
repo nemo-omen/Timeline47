@@ -2,6 +2,8 @@ using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Timeline47.Api.Models;
+using Timeline47.Shared;
+using Timeline47.Shared.SeedData;
 
 namespace Timeline47.Api.Data;
 
@@ -11,9 +13,16 @@ public static class Seeder
     {
         using var scope = services.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        var seedSettings = scope.ServiceProvider.GetRequiredService<IOptions<SeedDataSettings>>().Value;
-        var newsSourcesSeed = LoadSeedData<NewsSource>(seedSettings.NewsSourcesSeed); 
-        var dataSourcesSeed = LoadSeedData<DataSource>(seedSettings.DataSourcesSeed);
+        var newsSourceSeedDataPath = SeedDataHelper.GetSeedDataPath("NewsSources.json");
+        var dataSourceSeedDataPath = SeedDataHelper.GetSeedDataPath("DataSources.json");
+        var seedSettings = new SeedDataSettings
+        {
+            NewsSourcesSeed = newsSourceSeedDataPath,
+            DataSourcesSeed = dataSourceSeedDataPath
+        };
+        
+        var newsSourcesSeed = SeedDataHelper.LoadSeedData<NewsSource>(seedSettings.NewsSourcesSeed); 
+        var dataSourcesSeed = SeedDataHelper.LoadSeedData<DataSource>(seedSettings.DataSourcesSeed);
         var existingNewsSourceRecords = await context.NewsSources.ToListAsync();
         var existingDataSourceRecords = await context.DataSources.ToListAsync();
 
@@ -39,7 +48,6 @@ public static class Seeder
                 existingNewsSource.FeedUrl = nsSeed.FeedUrl;
             }
         }
-        
         
         foreach (var dsSeed in dataSourcesSeed)
         {
@@ -68,44 +76,5 @@ public static class Seeder
         }
         
         await context.SaveChangesAsync();
-    }
-
-    private static bool AreNewsSourcesEqual(NewsSource ns1, NewsSource ns2)
-    {
-        return ns1.Name == ns2.Name && ns1.Url == ns2.Url;
-    }
-    
-    private static bool AreDataSourcesEqual(DataSource ds1, DataSource ds2)
-    {
-        return ds1.Name == ds2.Name && ds1.Url == ds2.Url;
-    }
-    
-    private static List<T> LoadSeedData<T>(string filePath)
-    {
-        string? jsonData = null;
-        try
-        {
-            jsonData = File.ReadAllText(filePath);
-        }
-        catch (Exception e)
-        {
-            throw new Exception($"Error reading news source data: {filePath}", e);
-        }
-        
-        if(jsonData is null)
-        {
-            throw new Exception($"News source data is empty: {filePath}");
-        }
-        
-        var data = JsonSerializer.Deserialize<List<T>>(jsonData, new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        });
-        if (data is null)
-        {
-            throw new Exception($"News source data is empty or invalid: {filePath}");
-        }
-
-        return data;
     }
 }

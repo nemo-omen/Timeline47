@@ -2,10 +2,14 @@ using System.Text.Json;
 using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
 using Timeline47.Api.Data;
+using Timeline47.Api.Features.NewsGathering;
+using Timeline47.Shared.SeedData;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddFastEndpoints();
+
 builder.Services.Configure<SeedDataSettings>(builder.Configuration.GetSection("SeedData"));
+
 
 var env = builder.Environment;
 string connectionString;
@@ -27,8 +31,9 @@ var app = builder.Build();
 
 await Seeder.SeedAsync(app.Services);
 
-app.UseFastEndpoints(c =>
-{
-    c.Serializer.Options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-});
+app.UseDefaultExceptionHandler()
+    .UseFastEndpoints(c =>
+    {
+        c.Serializer.Options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    });
 app.Run();

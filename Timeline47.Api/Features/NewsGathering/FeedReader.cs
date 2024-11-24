@@ -3,6 +3,7 @@ using System.Xml;
 using FluentResults;
 using Polly;
 using Polly.Retry;
+using Timeline47.Shared.Infrastructure;
 
 namespace Timeline47.Api.Features.NewsGathering;
 
@@ -16,20 +17,15 @@ public class FeedReader : IFeedReader
 {
     private readonly ResiliencePipeline<HttpResponseMessage> _retryPipeline;
     private readonly HttpClient _httpClient;
-    public FeedReader(HttpClient httpClient)
+    public FeedReader(HttpClient httpClient, ResiliencePipeline<HttpResponseMessage>? retryPipeline = null)
     {
         _httpClient = httpClient;
-        _retryPipeline = new ResiliencePipelineBuilder<HttpResponseMessage>()
-            .AddRetry(new RetryStrategyOptions<HttpResponseMessage>
-            {
-                ShouldHandle = new PredicateBuilder<HttpResponseMessage>()
-                    .Handle<Exception>()
-                    .HandleResult(static result => !result.IsSuccessStatusCode),
-                Delay = TimeSpan.FromSeconds(3),
-                MaxRetryAttempts = 3,
-                BackoffType = DelayBackoffType.Exponential,
-            })
-            .Build();
+        if (retryPipeline is null)
+        {
+            retryPipeline = RetryPipelineFactory.CreateDefaultPipeline();
+        }
+        
+        _retryPipeline = retryPipeline;
     }
     
     /// <summary>
@@ -62,15 +58,25 @@ public class FeedReader : IFeedReader
                 var response = await _httpClient.GetAsync(url, token);
                 return response;
             }, cancellationToken);
-            
+
             if (!pipelineResponse.IsSuccessStatusCode)
             {
                 return Result.Fail<SyndicationFeed>($"Failed to fetch the feed for {url}.")
-                    .WithError(new ExceptionalError("HttpResponseException", new Exception(pipelineResponse.ReasonPhrase)));
+                    .WithError(new ExceptionalError("HttpResponseException",
+                        new Exception(pipelineResponse.ReasonPhrase)));
             }
 
             await using var stream = await pipelineResponse.Content.ReadAsStreamAsync(cancellationToken);
-            using var reader = XmlReader.Create(stream);
+            
+            var settings = new XmlReaderSettings
+            {
+                DtdProcessing = DtdProcessing.Parse, // Allow DTDs
+                XmlResolver = null // Disable external resource resolution for security
+            };
+            
+            using var reader = XmlReader.Create(stream, settings);
+
+            cancellationToken.ThrowIfCancellationRequested();
 
             var feed = SyndicationFeed.Load(reader);
             return Result.Ok(feed);
@@ -85,6 +91,16 @@ public class FeedReader : IFeedReader
         {
             return Result.Fail<SyndicationFeed>($"Failed to parse the feed for {url}")
                 .WithError(new ExceptionalError("XmlException", e));
+        }
+        catch (OperationCanceledException e)
+        {
+            return Result.Fail<SyndicationFeed>($"The operation was canceled while fetching the feed for {url}")
+                .WithError(new ExceptionalError("OperationCanceledException", e));
+        }
+        catch(ArgumentNullException e)
+        {
+            return Result.Fail<SyndicationFeed>($"The feed for {url} is null")
+                .WithError(new ExceptionalError("ArgumentNullException", e));
         }
         catch (Exception e)
         {

@@ -1,4 +1,4 @@
-namespace Timeline47.Api.Data;
+namespace Timeline47.Shared.SeedData;
 
 public class SeedDataSettings
 {

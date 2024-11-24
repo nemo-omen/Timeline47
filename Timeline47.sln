@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timeline47.Api", "Timeline4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timeline47.Test", "Timeline47.Test\Timeline47.Test.csproj", "{29D73E34-3B33-45B7-8A40-82556BA71ED7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timeline47.Shared", "Timeline47.Shared\Timeline47.Shared.csproj", "{B159DD07-87BC-4358-8950-E03C8EC3AD5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{29D73E34-3B33-45B7-8A40-82556BA71ED7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29D73E34-3B33-45B7-8A40-82556BA71ED7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29D73E34-3B33-45B7-8A40-82556BA71ED7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B159DD07-87BC-4358-8950-E03C8EC3AD5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B159DD07-87BC-4358-8950-E03C8EC3AD5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B159DD07-87BC-4358-8950-E03C8EC3AD5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B159DD07-87BC-4358-8950-E03C8EC3AD5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

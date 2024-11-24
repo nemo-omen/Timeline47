@@ -1,6 +1,7 @@
 using System.ServiceModel.Syndication;
 using FluentResults;
 using Timeline47.Api.Models;
+using Timeline47.Shared.Infrastructure;
 
 namespace Timeline47.Api.Features.NewsGathering;
 
@@ -14,9 +15,11 @@ public class FeedService : IFeedService
 {
     private readonly IFeedReader _feedReader;
     
-    public FeedService(IFeedReader feedReader)
+    public FeedService()
     {
-        _feedReader = feedReader;
+        _feedReader = new FeedReader(
+            new HttpClient(),
+            RetryPipelineFactory.CreateExponentialBackoffPipeline());
     }
 
     /// <summary>
@@ -27,9 +30,11 @@ public class FeedService : IFeedService
     public async Task<List<Result<SyndicationFeed>>> GetFeedsFromNewsSourcesAsync(List<NewsSource> newsSources)
     {
         var feedResults = new List<Result<SyndicationFeed>>();
-        foreach (var newsSource in newsSources)
+        const int batchSize = 10;
+        foreach (var batch in newsSources.Chunk(batchSize))
         {
-            feedResults.Add(await GetNewsSourceFeedAsync(newsSource));
+            var tasks = batch.Select(async newsSource => await GetNewsSourceFeedAsync(newsSource));
+            feedResults.AddRange(await Task.WhenAll(tasks));
         }
         return feedResults;
     }

@@ -34,4 +34,13 @@
       <Folder Include="ProjectAssets\DataSources\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Timeline47.Shared\Timeline47.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Data\SeedData\DataSources.json" />
+      <_ContentIncludedByDefault Remove="Data\SeedData\NewsSources.json" />
+    </ItemGroup>
+
 </Project>
