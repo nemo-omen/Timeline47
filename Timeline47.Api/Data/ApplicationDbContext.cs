@@ -19,6 +19,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<TimelineEvent> TimelineEvents { get; set; }
     public DbSet<NewsSource> NewsSources { get; set; }
     public DbSet<DataSource> DataSources { get; set; }
+    public DbSet<JobRecord> Jobs { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

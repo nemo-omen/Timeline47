@@ -16,7 +16,7 @@ public class FeedServiceTests : IClassFixture<DbFixture>
     }
 
     [Fact]
-    public void GetNewsSourceFeedAsync_Should_ReturnsResult()
+    public void GetNewsSourceFeedAsync_Should_ReturnResult()
     {
         // Arrange
         var context = _fixture.DbContext;

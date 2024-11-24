@@ -61,9 +61,10 @@ public class FeedReader : IFeedReader
 
             if (!pipelineResponse.IsSuccessStatusCode)
             {
-                return Result.Fail<SyndicationFeed>($"Failed to fetch the feed for {url}.")
+                var result = Result.Fail<SyndicationFeed>($"Failed to fetch the feed for {url}.")
                     .WithError(new ExceptionalError("HttpResponseException",
                         new Exception(pipelineResponse.ReasonPhrase)));
+                return result;
             }
 
             await using var stream = await pipelineResponse.Content.ReadAsStreamAsync(cancellationToken);

@@ -29,7 +29,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\NewsGathering\GetAllFeeds\" />
       <Folder Include="Features\NewsGathering\GetSingleFeed\" />
       <Folder Include="ProjectAssets\DataSources\" />
     </ItemGroup>

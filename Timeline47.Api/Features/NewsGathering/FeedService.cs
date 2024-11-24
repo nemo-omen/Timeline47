@@ -50,7 +50,7 @@ public class FeedService : IFeedService
     /// <returns>A result containing the syndication feed or an error message.</returns>
     public async Task<Result<SyndicationFeed>> GetNewsSourceFeedAsync(NewsSource newsSource)
     {
-        var feedResult = await _feedReader.ReadAsync(newsSource.Url);
+        var feedResult = await _feedReader.ReadAsync(newsSource.FeedUrl);
         return feedResult;
     }
 }

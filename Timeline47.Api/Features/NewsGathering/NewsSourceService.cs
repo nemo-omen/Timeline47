@@ -10,7 +10,7 @@ public interface INewsSourceService
     Task<List<NewsSource>> GetNewsSourcesAsync();
 }
 
-public class NewsSourceService
+public class NewsSourceService : INewsSourceService
 {
     private readonly INewsSourceRepository _newsSourceRepository;
     
