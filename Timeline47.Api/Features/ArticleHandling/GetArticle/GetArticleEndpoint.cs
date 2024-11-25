@@ -1,7 +1,7 @@
 using FastEndpoints;
 using Timeline47.Api.Models;
 
-namespace Timeline47.Api.Features.Article.GetArticle;
+namespace Timeline47.Api.Features.ArticleHandling.GetArticle;
 
 public class GetArticleEndpoint : EndpointWithoutRequest<GetArticleResponse>
 {

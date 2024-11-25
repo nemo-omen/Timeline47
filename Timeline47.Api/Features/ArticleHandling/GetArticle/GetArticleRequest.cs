@@ -1,4 +1,4 @@
-namespace Timeline47.Api.Features.Article.GetArticle;
+namespace Timeline47.Api.Features.ArticleHandling.GetArticle;
 
 public record GetArticleRequest
 {

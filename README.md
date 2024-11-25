@@ -1,4 +1,5 @@
 # Timeline47
+Note: This application is in _very_ early development. The following is a rough outline of the project and is subject to change.
 
 This application aims to provide a timeline of news events with links to subjects covered in those articles, along with overlays of economic data and other relevant information that will allow the user to better correlate events with publicly available data.
 
@@ -19,11 +20,13 @@ The data pipeline will be implemented in an event-driven fashion using a combina
 ## Potential tools
 ### SLMs
 - dslim/bert-base-NER
+  - [Tutorials on Working with Hugging Face Models and Datasets](https://medium.com/@anyuanay/tutorials-on-working-with-hugging-face-models-and-datasets-a01dea1f1a81)
 - distilbert-NER
 
 ### Interfacing
 - ML.NET
 - Python.NET
+- Iron Python (might be easier to get values back from python)
 - LLamaSharp
 - Separate Python API
 

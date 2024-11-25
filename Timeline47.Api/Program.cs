@@ -2,6 +2,7 @@ using System.Text.Json;
 using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
 using Timeline47.Api.Data;
+using Timeline47.Api.Features.ArticleHandling;
 using Timeline47.Api.Features.NewsGathering;
 using Timeline47.Api.Models;
 using Timeline47.Api.Shared;
@@ -19,6 +20,9 @@ builder.Services.Configure<SeedDataSettings>(builder.Configuration.GetSection("S
 builder.Services.AddScoped<INewsSourceRepository, NewsSourceRepository>();
 builder.Services.AddScoped<INewsSourceService, NewsSourceService>();
 builder.Services.AddScoped<IFeedService, FeedService>();
+
+builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
+builder.Services.AddScoped<IArticleService, ArticleService>();
 
 var env = builder.Environment;
 string connectionString;
